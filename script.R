@@ -52,3 +52,11 @@ ggplot(data=sumofsales, aes(x= Year)) +
   ylab("in millions") +
   theme_stata()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),legend.position="top")
+
+year_count<- games %>%
+  group_by(Year) %>%
+  summarise(count_year = n())
+tail(year_count)
+
+games <- games[games$Year!='2017'& games$Year!='2020',]
+head(games)
