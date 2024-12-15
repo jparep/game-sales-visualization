@@ -130,3 +130,23 @@ ggplot(platform_game, aes(fill=Platform, y=count_name, x=Year)) +
   theme_stata()+
   theme(legend.position="right",axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
+platform_sales <-games %>%
+  group_by(Platform) %>%
+  summarise(GlobalSales = sum(Global_Sales),
+            NA_Sales = sum(NA_Sales),
+            EU_Sales = sum(EU_Sales),
+            JP_Sales = sum(JP_Sales),.groups = 'drop') %>%
+  arrange(desc(GlobalSales))
+platform_sales11 <- head(platform_sales,11)
+platform_sales11 = melt(platform_sales11)
+names(platform_sales11) = c('Platform','SaleDistrict','Sales')
+
+options(repr.plot.width = 16, repr.plot.height = 8)
+ggplot(data=platform_sales11,aes(x = SaleDistrict,y = Sales, fill=Platform))+
+  geom_bar(stat='identity', position='dodge',colour='black' )+
+  ggtitle("Popularity of Platforms by Sales District") +
+  xlab("Sales District") +
+  ylab("in millions") +
+  theme_stata()+
+  theme(legend.position="right")
+
