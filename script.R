@@ -181,6 +181,26 @@ plot_top_publishers <- function(publishers) {
     theme_stata()
 }
 
-
+# Main script
+if (interactive()) {
+  # Load and clean the dataset
+  games <- load_and_clean_data("vgsales.csv")
+  
+  # Summarize sales by year and plot
+  yearly_sales <- summarize_sales_by_year(games)
+  plot_sales_trends(yearly_sales)
+  
+  # Find and plot top 10 games
+  top_games <- top_games_by_sales(games, top_n = 10)
+  plot_top_games(top_games)
+  
+  # Calculate and plot genre distribution
+  genre_dist <- calculate_genre_distribution(games)
+  plot_genre_distribution(genre_dist)
+  
+  # Find and plot top 20 publishers
+  top_publishers <- top_publishers_by_sales(games, top_n = 20)
+  plot_top_publishers(top_publishers)
+}
 
 
