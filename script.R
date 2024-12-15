@@ -72,4 +72,41 @@ plot_sales_trends <- function(summary) {
 }
 
 
+# Function to find top N games by sales
+top_games_by_sales <- function(data, top_n = 10) {
+  """
+  Identify the top N games by global sales.
+
+  Args:
+    data: Cleaned games dataset.
+    top_n: Number of top games to return.
+
+  Returns:
+    A tibble of top N games.
+  """
+  top_games <- data %>%
+    group_by(Name) %>%
+    summarise(sum_global_sales = sum(Global_Sales, na.rm = TRUE), .groups = "drop") %>%
+    arrange(desc(sum_global_sales)) %>%
+    slice_head(n = top_n)
+  return(top_games)
+}
+
+# Plot top N games by sales
+plot_top_games <- function(top_games) {
+  """
+  Create a bar chart for the top N games by sales.
+
+  Args:
+    top_games: Tibble of top games by sales.
+  """
+  ggplot(top_games, aes(x = reorder(Name, sum_global_sales), y = sum_global_sales)) +
+    geom_col(fill = "steelblue") +
+    coord_flip() +
+    ggtitle("Top Games by Global Sales") +
+    xlab("Game") + ylab("Sales (in millions)") +
+    theme_stata()
+}
+
+
 
