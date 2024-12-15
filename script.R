@@ -150,3 +150,26 @@ ggplot(data=platform_sales11,aes(x = SaleDistrict,y = Sales, fill=Platform))+
   theme_stata()+
   theme(legend.position="right")
 
+
+publisher_count <-games %>%
+  group_by(Publisher) %>%
+  summarise(count_name = length(unique(Name)),.groups = 'drop') %>%
+  arrange(desc(count_name)) %>%
+  select(Publisher)%>%
+  head(6)
+publisher_count6 <-as.vector(publisher_count$Publisher)
+
+publisher_genre<- games %>%
+  filter(Publisher %in% publisher_count6)%>%
+  group_by(Publisher,Genre) %>%
+  summarise(count_name = length(unique(Name)),.groups = 'drop') %>%
+  arrange(desc(count_name))
+
+options(repr.plot.width = 16, repr.plot.height = 8)
+ggplot(data=publisher_genre,aes(x = Publisher,y = count_name, fill=Genre))+
+  geom_bar(stat='identity', position='dodge',colour='black' )+
+  ggtitle("Genre Distribution by Publishers") +
+  xlab("Publishers") +
+  ylab("Number of Published Games") +
+  theme_stata()+
+  theme(legend.position="bottom")
