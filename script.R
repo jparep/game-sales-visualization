@@ -127,5 +127,23 @@ calculate_genre_distribution <- function(data) {
 }
 
 
+# Plot genre distribution
+plot_genre_distribution <- function(genre_dist) {
+  """
+  Create a pie chart of genre distribution by sales percentage.
+
+  Args:
+    genre_dist: Tibble of genre sales distribution.
+  """
+  ggplot(genre_dist, aes(x = "", y = percentage, fill = Genre)) +
+    geom_bar(stat = "identity", width = 1, color = "white") +
+    coord_polar("y", start = 0) +
+    ggtitle("Genre Distribution by Global Sales") +
+    geom_text(aes(label = paste0(round(percentage, 1), "%")), position = position_stack(vjust = 0.5)) +
+    theme_void() +
+    theme(legend.position = "right")
+}
+
+
 
 
