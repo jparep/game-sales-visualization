@@ -144,6 +144,26 @@ plot_genre_distribution <- function(genre_dist) {
     theme(legend.position = "right")
 }
 
+# Function to find top N publishers by sales
+top_publishers_by_sales <- function(data, top_n = 20) {
+  """
+  Identify the top N publishers by global sales.
+
+  Args:
+    data: Cleaned games dataset.
+    top_n: Number of top publishers to return.
+
+  Returns:
+    A tibble of top publishers.
+  """
+  publishers <- data %>%
+    group_by(Publisher) %>%
+    summarise(sum_global_sales = sum(Global_Sales, na.rm = TRUE), .groups = "drop") %>%
+    arrange(desc(sum_global_sales)) %>%
+    slice_head(n = top_n)
+  return(publishers)
+}
+
 
 
 
