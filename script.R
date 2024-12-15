@@ -60,3 +60,20 @@ tail(year_count)
 
 games <- games[games$Year!='2017'& games$Year!='2020',]
 head(games)
+
+
+games_sales10 <-games %>%
+  group_by(Name) %>%
+  summarise(sum_global_sales = sum(Global_Sales),.groups = 'drop') %>%
+  arrange(desc(sum_global_sales))
+games_totalsales <- head(games_sales10,10)
+
+options(repr.plot.width = 16, repr.plot.height = 8)
+ggplot(data= games_totalsales, aes(x= Name, y=sum_global_sales)) +
+  geom_bar(stat = "identity",  aes(x= Name, y=sum_global_sales,fill=Name))+
+  ggtitle("Top-10 Games by Sales") +
+  xlab("Games") +
+  ylab("in millions") +
+  theme_stata()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        legend.position="none")
