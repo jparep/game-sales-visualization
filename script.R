@@ -18,3 +18,6 @@ str(games)
 summary(games)
 
 unique(games$Year)
+
+games <- games[games$Year!='N/A',]
+games$Year <- factor(games$Year)
