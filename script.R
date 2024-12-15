@@ -115,3 +115,18 @@ ggplot(data= publisher_sales20, aes(x= Publisher, y=sum_global_sales)) +
   theme_stata()+
   theme(legend.position="none",axis.text.y=element_blank())
 
+
+platform_game <-games %>%
+  group_by(Year,Platform) %>%
+  summarise(count_name = length(unique(Name)),.groups = 'drop') %>%
+  arrange(desc(Year))
+
+options(repr.plot.width = 16, repr.plot.height = 8)
+ggplot(platform_game, aes(fill=Platform, y=count_name, x=Year)) + 
+  geom_bar(position="stack", stat="identity")+
+  ggtitle("Platforms Distribution by Yearly Number of Published Games") +
+  xlab("Years") +
+  ylab("Number of Published Games") +
+  theme_stata()+
+  theme(legend.position="right",axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
