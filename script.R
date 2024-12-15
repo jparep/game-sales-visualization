@@ -77,3 +77,23 @@ ggplot(data= games_totalsales, aes(x= Name, y=sum_global_sales)) +
   theme_stata()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position="none")
+
+
+genre_sales <-games %>%
+  group_by(Genre) %>%
+  summarise(sum_global_sales = sum(Global_Sales),.groups = 'drop') %>%
+  arrange(desc(sum_global_sales))%>%
+  mutate(percent = sum_global_sales/sum(sum_global_sales)*100)
+
+options(repr.plot.width = 18, repr.plot.height = 10)
+ggplot(data= genre_sales, aes(x= "",y=percent,fill = Genre))+
+  geom_bar(stat="identity", width=1, color="white")+
+  coord_polar("y", start=0)+
+  ggtitle("Genre by % Global Sales") +
+  xlab("") +
+  ylab("") +
+  theme_stata()+
+  theme(legend.position="right")+
+  geom_text(aes(label = paste0(round(percent),"%")), position = position_stack(vjust = 0.5),color = "black",size=5)
+
+
