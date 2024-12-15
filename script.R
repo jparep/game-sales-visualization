@@ -62,6 +62,7 @@ games <- games[games$Year!='2017'& games$Year!='2020',]
 head(games)
 
 
+#Top-10 Games by Sales
 games_sales10 <-games %>%
   group_by(Name) %>%
   summarise(sum_global_sales = sum(Global_Sales),.groups = 'drop') %>%
@@ -79,6 +80,7 @@ ggplot(data= games_totalsales, aes(x= Name, y=sum_global_sales)) +
         legend.position="none")
 
 
+#Genre by % Global Sales
 genre_sales <-games %>%
   group_by(Genre) %>%
   summarise(sum_global_sales = sum(Global_Sales),.groups = 'drop') %>%
@@ -97,6 +99,7 @@ ggplot(data= genre_sales, aes(x= "",y=percent,fill = Genre))+
   geom_text(aes(label = paste0(round(percent),"%")), position = position_stack(vjust = 0.5),color = "black",size=5)
 
 
+#op-20 Publisher by Sales
 publisher_sales <-games %>%
   group_by(Publisher) %>%
   summarise(sum_global_sales = sum(Global_Sales),.groups = 'drop') %>%
@@ -116,6 +119,7 @@ ggplot(data= publisher_sales20, aes(x= Publisher, y=sum_global_sales)) +
   theme(legend.position="none",axis.text.y=element_blank())
 
 
+#Platforms Distribution by Yearly Number of Published Games
 platform_game <-games %>%
   group_by(Year,Platform) %>%
   summarise(count_name = length(unique(Name)),.groups = 'drop') %>%
@@ -130,6 +134,8 @@ ggplot(platform_game, aes(fill=Platform, y=count_name, x=Year)) +
   theme_stata()+
   theme(legend.position="right",axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
+
+#Popularity of Platforms by Sales Distric
 platform_sales <-games %>%
   group_by(Platform) %>%
   summarise(GlobalSales = sum(Global_Sales),
@@ -151,6 +157,7 @@ ggplot(data=platform_sales11,aes(x = SaleDistrict,y = Sales, fill=Platform))+
   theme(legend.position="right")
 
 
+#Genre Distribution by Publishers
 publisher_count <-games %>%
   group_by(Publisher) %>%
   summarise(count_name = length(unique(Name)),.groups = 'drop') %>%
@@ -174,6 +181,8 @@ ggplot(data=publisher_genre,aes(x = Publisher,y = count_name, fill=Genre))+
   theme_stata()+
   theme(legend.position="bottom")
 
+
+# Top-5 Publisher Distribution by Yearly Number of Game and Sales
 publisher_count <-games %>%
   group_by(Publisher) %>%
   summarise(GlobalSales = sum(Global_Sales),count_game = length(unique(Name)),.groups = 'drop') %>%
@@ -198,3 +207,5 @@ ggplot(publisher_bubble,aes(x=Year, y=GlobalSales, size=count_game, fill=Publish
   ylab("in millions") +
   xlab("Year")+
   theme(legend.position="right",axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+
