@@ -108,5 +108,24 @@ plot_top_games <- function(top_games) {
     theme_stata()
 }
 
+# Function to calculate genre distribution
+calculate_genre_distribution <- function(data) {
+  """
+  Calculate percentage distribution of global sales by genre.
+
+  Args:
+    data: Cleaned games dataset.
+
+  Returns:
+    A tibble with percentage sales by genre.
+  """
+  genre_dist <- data %>%
+    group_by(Genre) %>%
+    summarise(sum_global_sales = sum(Global_Sales, na.rm = TRUE), .groups = "drop") %>%
+    mutate(percentage = sum_global_sales / sum(sum_global_sales) * 100)
+  return(genre_dist)
+}
+
+
 
 
