@@ -1,3 +1,8 @@
+#update.packages(ask = FALSE)
+#install.packages("tidyverse")
+#install.packages("ggthemes")
+#install.packages("ggplot2")
+
 library(tidyverse)
 library(ggthemes)
 library(ggplot2)
@@ -6,3 +11,6 @@ library(ggplot2)
 setwd("C:/Users/jparep/Documents/proj/r/game-sales-visualization")
 
 games <- read.csv("vgsales.csv", stringsAsFactors = FALSE)
+head(games)
+
+str(games)
