@@ -44,3 +44,32 @@ summarize_sales_by_year <- function(data) {
     )
   return(summary)
 }
+
+# Plot yearly sales trends
+plot_sales_trends <- function(summary) {
+  """
+  Create a line plot showing sales trends over the years.
+
+  Args:
+    summary: Tibble with summarized sales data.
+  """
+  ggplot(summary, aes(x = Year)) +
+    geom_line(aes(y = sum_global_sales, color = "Global Sales"), linetype = "dashed") +
+    geom_line(aes(y = sum_na_sales, color = "North America Sales"), linetype = "dashed") +
+    geom_line(aes(y = sum_eu_sales, color = "Europe Sales"), linetype = "dashed") +
+    geom_line(aes(y = sum_jp_sales, color = "Japan Sales"), linetype = "dashed") +
+    geom_line(aes(y = sum_other_sales, color = "Other Sales"), linetype = "dashed") +
+    scale_color_manual(
+      name = "Sales",
+      values = c("Global Sales" = "red", "North America Sales" = "blue",
+                 "Europe Sales" = "green", "Japan Sales" = "orange", 
+                 "Other Sales" = "yellow")
+    ) +
+    ggtitle("Yearly Sales Trends by Region") +
+    xlab("Year") + ylab("Sales (in millions)") +
+    theme_stata() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+}
+
+
+
