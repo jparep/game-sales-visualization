@@ -165,5 +165,22 @@ top_publishers_by_sales <- function(data, top_n = 20) {
 }
 
 
+# Plot top N publishers by sales
+plot_top_publishers <- function(publishers) {
+  """
+  Create a bar chart for the top N publishers by sales.
+
+  Args:
+    publishers: Tibble of top publishers by sales.
+  """
+  ggplot(publishers, aes(x = reorder(Publisher, sum_global_sales), y = sum_global_sales)) +
+    geom_col(fill = "darkorange") +
+    coord_flip() +
+    ggtitle("Top Publishers by Global Sales") +
+    xlab("Publisher") + ylab("Sales (in millions)") +
+    theme_stata()
+}
+
+
 
 
