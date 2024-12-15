@@ -97,3 +97,21 @@ ggplot(data= genre_sales, aes(x= "",y=percent,fill = Genre))+
   geom_text(aes(label = paste0(round(percent),"%")), position = position_stack(vjust = 0.5),color = "black",size=5)
 
 
+publisher_sales <-games %>%
+  group_by(Publisher) %>%
+  summarise(sum_global_sales = sum(Global_Sales),.groups = 'drop') %>%
+  arrange(desc(sum_global_sales))
+publisher_sales20 <- head(publisher_sales,20)
+
+options(repr.plot.width = 16, repr.plot.height = 8)
+ggplot(data= publisher_sales20, aes(x= Publisher, y=sum_global_sales)) +
+  geom_bar(stat = "identity",  aes(x= Publisher, y=sum_global_sales,fill=Publisher))+
+  coord_flip()+
+  ggtitle("Top-20 Publisher by Sales") +
+  xlab("Publishers") +
+  ylab("in millions") +
+  geom_text(aes(label=Publisher), vjust=0.5,hjust=0, color="black",
+            position = position_dodge(1), size=4)+
+  theme_stata()+
+  theme(legend.position="none",axis.text.y=element_blank())
+
