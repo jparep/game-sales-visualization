@@ -14,3 +14,7 @@ games <- read.csv("vgsales.csv", stringsAsFactors = FALSE)
 head(games)
 
 str(games)
+
+summary(games)
+
+unique(games$Year)
