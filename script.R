@@ -173,3 +173,28 @@ ggplot(data=publisher_genre,aes(x = Publisher,y = count_name, fill=Genre))+
   ylab("Number of Published Games") +
   theme_stata()+
   theme(legend.position="bottom")
+
+publisher_count <-games %>%
+  group_by(Publisher) %>%
+  summarise(GlobalSales = sum(Global_Sales),count_game = length(unique(Name)),.groups = 'drop') %>%
+  arrange(desc(count_game)) %>%
+  select(Publisher)%>%
+  head(5)
+publisher_count20 <-as.vector(publisher_count$Publisher)
+
+publisher_bubble<- games %>%
+  filter(Publisher %in% publisher_count20)%>%
+  group_by(Year,Publisher) %>%
+  summarise(GlobalSales = sum(Global_Sales),count_game = length(unique(Name)),.groups = 'drop') %>%
+  arrange(desc(Year))
+
+
+options(repr.plot.width = 16, repr.plot.height = 8)
+ggplot(publisher_bubble,aes(x=Year, y=GlobalSales, size=count_game, fill=Publisher)) +
+  geom_point(alpha=0.5, shape=21, color="black") +
+  scale_size(range = c(.1, 24), name="Number of Games") +
+  theme_stata() +
+  ggtitle("Top-5 Publisher Distribution by Yearly Number of Game and Sales") +
+  ylab("in millions") +
+  xlab("Year")+
+  theme(legend.position="right",axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
