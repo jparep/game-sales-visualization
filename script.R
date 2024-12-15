@@ -21,3 +21,5 @@ unique(games$Year)
 
 games <- games[games$Year!='N/A',]
 games$Year <- factor(games$Year)
+
+games <- games[,2:11]
