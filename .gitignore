@@ -1,0 +1,64 @@
+# R-specific files
+.Rhistory
+.RData
+.Rproj.user/
+.Ruserdata
+.Rapp.history
+.Renviron
+
+# RStudio files
+*.Rproj
+.Rproj.user/
+
+# renv (R Environment Management)
+renv/library/
+renv/staging/
+renv/cache/  # Optional: If you want to exclude renv's global package cache
+renv/python/ # Exclude Python dependencies managed by renv
+
+# Packrat (deprecated but still relevant in some workflows)
+packrat/lib/
+packrat/src/
+packrat/cache/
+
+# Temporary files and caches
+*.Rout
+*.Rout.save
+*.Rhistory
+*.Rdata
+.RDS
+*.csv~
+*.sav
+*.tmp
+*.log
+
+# Compiled files (e.g., C/C++ extensions)
+*.o
+*.so
+*.dll
+
+# Data files (optional; adjust based on your project)
+*.sqlite
+*.db
+
+# Jupyter Notebooks (if working with R in Jupyter)
+.ipynb_checkpoints/
+
+# Python-related (if Python is part of the project)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+*.ipynb_checkpoints/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Backup Files
+*~
+*.bak
+*.swp
+*.swo
